@@ -1,0 +1,181 @@
+<!DOCTYPE html><html><head><title>Space in Design Systems</title><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><link rel="shortcut icon" href="dist/img/favicon.ico"><link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Oxygen:300,400,700&amp;display=swap"></head><style>:root {
+	--brand: #d85957;
+
+	--border-theme: 4px;
+
+	--neutral-0: #454545;
+	--neutral-1: #7D8BA4;
+	--neutral-2: #B9C1CE;
+	--neutral-3: #93A0B1;
+	--neutral-4: #F5F6F8;
+
+	--h1: 40px;
+	--h2: 32px;
+	--h3: 28px;
+	--h4: 24px;
+	--h5: 20px;
+	--h6: 16px;	
+}
+body{
+	font-family: 'Oxygen';
+	font-size: 14px;
+	font-weight: 400;
+	color: var(--neutral-0);
+	position: relative;
+}
+body::before{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	right: 0;
+	content: "";
+	z-index: 0;
+	border-top: 3px solid #f2f2f2;
+	border-top-right-radius: 100%;
+}
+a{
+	text-decoration: none;
+	color: var(--neutral-0);
+}
+.box{
+	width: 100%;
+	max-width: 576px;
+}
+.item{
+	width: 100%;
+	position: relative;
+}
+.item:not(:last-child){
+	margin-bottom: 8px;
+}
+.progress-bar{
+	height: 16px;
+	background-color: var(--neutral-4);
+	/* border: 1px solid var(--neutral-4); */
+	border-radius: var(--border-theme);
+	transition: all .3s ease;
+}
+.item .content{
+	position: absolute;
+	top: 50%;
+	right: 0;
+	left: 0;
+	transform: translateY(-50%);
+	text-align: right;
+}
+.item .content span{
+	width: 40px;
+	display: inline-block;
+	text-align: center;
+	color: var(--neutral-0);
+	font-size: var(--h6);
+	font-weight: 300;
+	transition: all .3s ease;
+}
+//- .item .content span:hover{
+//- 	font-size: var(--h2);
+//- }
+.item:hover .progress-bar{
+	transform: scale(0.8);
+	background-color: var(--neutral-2);
+}
+.item:hover .content span{
+	font-size: var(--h2);
+	text-shadow: 1px 1px 0 white, -1px -1px 0 white, 0 -1px 0 white, 0 1px 0 white, -1px 0 0 white, 1px 0 0 white;
+}
+.page-title{
+	color: var(--neutral-0);
+	font-size: 64px;
+	font-weight: 300;
+	margin-bottom: 32px;
+	/* min-height: 162px; */
+	transition: all .3s ease;
+}
+.page-title:hover{
+	font-size: 60px;
+}
+
+.row{
+	display: flex;
+	flex-wrap: wrap;
+}
+.col-6{
+	width: 50%;
+}
+.col-12{
+	width: 100%;
+}
+.section{
+	margin-bottom: 64px;
+}
+.section:first-child{
+	transition: all 3s ease;
+}
+.section:nth-child(2){
+	transition: all 9s ease;
+}
+.text-uppercase{
+	text-transform: uppercase;
+}
+.bg-text{
+	position: absolute;
+	top: 16px;
+	right: 16px;
+	color: #45454514;
+	font-size: 128px;
+	font-weight: 300;
+	z-index: 0;
+	text-align: right;
+}
+.bg-text::before{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	max-width: 480px;
+	max-height: 300px;
+	top: 80%;
+	right: 0;
+	background-color: #45454505;
+	content: "";
+}
+//- .bg-text::after{
+//- 	position: absolute;
+//- 	width: 100%;
+//- 	height: 100%;
+//- 	max-width: 480px;
+//- 	max-height: 480px;
+//- 	top: 0;
+//- 	right: 50%;
+//- 	background-color: #45454505;
+//- 	content: "";
+//- }
+.go-to-url{
+	position: relative;
+}
+.go-to-url::before{
+	position: absolute;
+	width: 50%;
+	height: 3px;
+	top: calc(100% + 12px);
+	right: 0;
+	content: "";
+	background-color: var(--neutral-0);
+	transition: all .3s ease;
+}
+.go-to-url:hover::before{
+	width: 60%;
+}
+</style><body style="padding: 32px;"><div class="row" style="position: relative;"><div class="col-12 section"><div class="page-title">The linear scale</div><div class="box"><div class="item"><div class="progress-bar" style="width: 8%;"></div><div class="content"><span>2</span></div></div><div class="item"><div class="progress-bar" style="width: 16%;"></div><div class="content"><span>4</span></div></div><div class="item"><div class="progress-bar" style="width: 24%;"></div><div class="content"><span>6</span></div></div><div class="item"><div class="progress-bar" style="width: 32%;"></div><div class="content"><span>8</span></div></div><div class="item"><div class="progress-bar" style="width: 40%;"></div><div class="content"><span>10</span></div></div><div class="item"><div class="progress-bar" style="width: 48%;"></div><div class="content"><span>12</span></div></div><div class="item"><div class="progress-bar" style="width: 56%;"></div><div class="content"><span>14</span></div></div><div class="item"><div class="progress-bar" style="width: 64%;"></div><div class="content"><span>16</span></div></div></div></div><div class="col-12 section"><div class="page-title">The golden ratio, <br> modular scale</div><div class="box"><div class="item"><div class="progress-bar" style="width: 2%;"></div><div class="content"><span>2</span></div></div><div class="item"><div class="progress-bar" style="width: 4%;"></div><div class="content"><span>4</span></div></div><div class="item"><div class="progress-bar" style="width: 8%;"></div><div class="content"><span>8</span></div></div><div class="item"><div class="progress-bar" style="width: 16%;"></div><div class="content"><span>16</span></div></div><div class="item"><div class="progress-bar" style="width: 32%;"></div><div class="content"><span>32</span></div></div><div class="item"><div class="progress-bar" style="width: 64%;"></div><div class="content"><span>64</span></div></div><div class="item"><div class="progress-bar" style="width: 128%;"></div><div class="content"><span>128</span></div></div><div class="item"><div class="progress-bar" style="width: 256%;"></div><div class="content"><span>256</span></div></div></div></div></div><div class="bg-text">Space in <br> <u>Design Systems</u><br><a class="go-to-url" href="https://medium.com/eightshapes-llc/space-in-design-systems-188bcbae0d62" style="font-size: var(--h1)">Read more</a></div></body><script>const doAnimation = ()=> {
+	let section_1 = document.querySelectorAll('.section')[0],
+		section_2 = document.querySelectorAll('.section')[1];
+	section_1.style.marginLeft == '' ? section_1.style.marginLeft = '1%' : section_1.style.marginLeft = '';
+	section_2.style.marginLeft == '' ? section_2.style.marginLeft = '6%' : section_2.style.marginLeft = '';
+}
+doAnimation();
+
+setInterval(()=> {
+	doAnimation();
+}, 1000)
+
+console.log('A small project used Pug template engine and Vanilla Javascript!');</script></html>

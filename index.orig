@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<meta charset="utf-8">
+	<title>Color Generator</title>
+</head>
+<!-- <link href="https://fonts.googleapis.com/css?family=Comfortaa:300,400,700" rel="stylesheet"> -->
+<link rel="stylesheet" href="assets/fonts/typicons.min.css">
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel-border">
+					<div class="panel-heading">
+						Choose Color
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="HEX" id="hex" maxlength="7">
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="RGB" id="rgb" readonly>
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="HSL" id="hsl" readonly>
+								</div>
+							</div>
+							<div class="col-md-9">
+								<div class="row box">
+									<!-- <div class="col-md-3 form-group box-item">
+										<div class="color-box">
+											<button type="button" class="btn btn-primary btn-sm copy"><i class="typcn typcn-bookmark"></i></button>
+											<b></b>
+										</div>
+									</div> -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</body>
+<script src="assets/js/jquery-2.1.1.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script>
+	$(window).load(function() {
+		var body = $('body');
+
+		function appendBoxItem(){
+			for (var i = 0; i < 20; i++) {
+				document.querySelector('.box').insertAdjacentHTML('beforeend', '<div class="col-md-3 form-group box-item"><label></label> <div class="color-box"><b></b> <button type="button" class="btn btn-primary btn-sm copy" data-toggle="tooltip" data-placement="top" title="Copy!"><i class="typcn typcn-bookmark"></i></button></div> </div>');
+			}
+		}
+
+		appendBoxItem();
+
+
+		/* For quick copy-paste */
+		$('input').focus(function() { this.select(); });
+
+		/* Change color on every key input. */
+		$('#hex').bind('blur keydown', function(event) {
+			var el = this;
+			setTimeout(function() {
+				var rgb = [],
+				fail = false,
+				original = $(el).val(),
+				result,
+				hex = (original + '').replace(/#/, '');
+
+				if (original.length === 1 && original !== '#') {
+					$(el).val('#' + original);
+				}
+				console.log(hex);
+				console.log($(el).val());
+				// debugger;
+				if (hex.length == 3) hex = hex + hex;
+
+				for (var i = 0; i < 6; i += 2) {
+					rgb.push(parseInt(hex.substr(i, 2), 16));
+					fail = fail || rgb[rgb.length - 1].toString() === 'NaN';
+				}
+
+				$('#rgb').val(fail ? '' : 'rgb(' + rgb.join(',') + ')');
+				$('#hsl').val(fail ? '' : 'hsl(' + rgbToHsl.apply(null, rgb).join(',') + ')');
+
+				body.css('backgroundColor', $('#rgb').val());
+
+				result = $('#hsl').val();
+				if (!result == '' && result == result) {
+					var temp,
+					original_result,
+					count,
+					cut_result = [];
+
+					temp = result.split(',');
+					temp.pop();
+
+					for (var i = 0; i <= 100; i += 5) {
+						count = i.toString() + '%)';
+						original_result = result.split(',');
+						original_result.pop();
+						temp = original_result;
+						temp.push(count.toString());
+
+						console.log(temp.join(','));
+
+						cut_result.push(temp.join(','));
+
+					}
+
+					console.log(cut_result)
+					var i = 0;
+					$('.color-box').each(function(index, el) {
+						$(el).css('backgroundColor', cut_result[index]);
+						var color = $(el).css('backgroundColor'),
+							percentage = (i += 5).toString() + '%',
+							hex,
+							r, g, b;
+
+						color = color.substr(3).split(',');
+							r = color[0].substr(1);
+							g = color[1].substr(1);
+							b = color[2].substr(1).slice(0, -1);
+
+						hex = rgbToHex(r, g, b);
+						$(el).find('b').html(hex);
+						$(el).closest('.box-item').find('label').html(percentage);
+					});
+				}
+
+			}, 13);
+		});
+
+		/* Function to convert rgb-to-hsl. */
+		function rgbToHsl(r, g, b) {
+			r /= 255, g /= 255, b /= 255;
+			var max = Math.max(r, g, b),
+			min = Math.min(r, g, b);
+			var h, s, l = (max + min) / 2;
+
+			if (max == min) { h = s = 0; } else {
+				var d = max - min;
+				s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+
+				switch (max) {
+					case r:
+					h = (g - b) / d + (g < b ? 6 : 0);
+					break;
+					case g:
+					h = (b - r) / d + 2;
+					break;
+					case b:
+					h = (r - g) / d + 4;
+					break;
+				}
+
+				h /= 6;
+			}
+
+		// return [(h*100+0.5)|0, ((s*100+0.5)|0) + '%', ((l*100+0.5)|0) + '%'];
+		return [h = (Math.floor(h * 360)).toString(), s = (Math.floor(s * 100)).toString() + '%', l = (Math.floor(l * 100)).toString() + '%'];
+	}
+
+	/* Function to convert rgb-to-hex. */
+	function byte2Hex(n) {
+		var nybHexString = "0123456789ABCDEF";
+		return String(nybHexString.substr((n >> 4) & 0x0F, 1)) + nybHexString.substr(n & 0x0F, 1);
+	}
+
+	function rgbToHex(r, g, b) {
+		return '#' + byte2Hex(r) + byte2Hex(g) + byte2Hex(b);
+	}
+});
+
+	$(document).ready(function() {
+
+		if (!("placeholder" in document.createElement("input"))) {
+			$("input[placeholder], textarea[placeholder]").each(function() {
+				var val = $(this).attr("placeholder");
+				if (this.value == "") {
+					this.value = val;
+				}
+				$(this).focus(function() {
+					if (this.value == val) {
+						this.value = "";
+					}
+				}).blur(function() {
+					if ($.trim(this.value) == "") {
+						this.value = val;
+					}
+				})
+			});
+
+		// Clear default placeholder values on form submit
+		$('form').submit(function() {
+			$(this).find("input[placeholder], textarea[placeholder]").each(function() {
+				if (this.value == $(this).attr("placeholder")) {
+					this.value = "";
+				}
+			});
+		});
+	}
+
+	function copyToClipboard(element) {
+		var $temp = $("<input>");
+		$("body").append($temp);
+		debugger
+		$temp.val($(element).text()).select();
+		document.execCommand("copy");
+		$temp.remove();
+	}
+
+	$(document).on('click', '.btn.copy', function(event) {
+		var copyText = $(this).closest('.color-box').children('b');
+		copyToClipboard(copyText);
+		body.tooltip({
+			selector: '.copy'
+		}, 'hide');
+	});
+
+
+});
+</script>
+
+</html>

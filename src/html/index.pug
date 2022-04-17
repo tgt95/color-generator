@@ -1,0 +1,30 @@
+extends include/layout.pug
+
+block meta-title
+	title Color generator
+
+block custom
+block page-css
+
+block content
+	.box-generator.is-grow-up
+		.box-generator--layer-1
+		.box-generator--layer-2
+		.box-generator--title Color Generator
+			.box-generator--content
+				.form-group
+					input#hex.form-control.rounded(type='text' placeholder='HEX' maxlength='7')
+				.form-group
+					input#rgb.form-control.rounded(type='text' placeholder='RGB' readonly='')
+				.form-group
+					input#hsl.form-control.rounded(type='text' placeholder='HSL' readonly='')
+	.page-inner.pt-5
+		.container
+			.box-result.is-pending.is-grow-up
+
+block page-script
+
+block script
+	//- Client side
+	script.
+		console.log('Hello');

@@ -1,0 +1,36 @@
+-
+	//- Utilities functions
+	const varToString = varObj => Object.keys(varObj)[0];
+	const getImageSize = file => {
+		let dimensions = imageSize(file);
+		let w = dimensions.width
+		let h = dimensions.height
+		return [w,h];
+	}
+
+//- Grid details
+mixin galleryCard__Internal(item, index, category)
+	.swiper-slide.item
+		.item-thumbnail
+			img(src=item.image)
+			a(href=item.src 
+				data-size=`${getImageSize(item.image)[0]}x${getImageSize(item.image)[1]}` 
+				data-img-index=index data-full=JSON.stringify(item)).overlay-content
+				i.icon.ri-zoom-in-line
+		.title= item.title
+		.url-link
+			//- i.icon.ri-global-line
+			a(href=item.website target="_blank" rel="nofollow")= item.website
+
+mixin galleryCard__External(item, index, category)
+	.swiper-slide.item
+		.item-thumbnail
+			img(src=item.image)
+			a(href=item.externalURL 
+				target="_blank"
+				rel="nofollow"
+				data-full=JSON.stringify(item)).overlay-content.external
+				.text-center
+					i.icon.ri-external-link-line
+					.text= item.guideText
+		.title= item.title

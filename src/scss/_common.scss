@@ -1,0 +1,29 @@
+body{
+	font-family: $font-s1;
+	font-weight: 300;
+	transition: all .3s cubic-bezier(.55,0,.1,1);
+}
+
+.tooltip{
+	font-family: inherit;
+	transition: all .3s cubic-bezier(.55,0,.1,1);
+}
+
+[data-toggle="tooltip"]{
+	position: relative;
+	&[data-placement]{
+		.tooltip{
+			// position: absolute;
+			// width: 100%;
+		 //    max-width: 120px; 
+		 //    background-color: rgba(black, .8);
+		 //    color: white;
+		}
+	}
+	&[data-placement="top"]{
+		.tooltip{
+			// bottom: 40px;
+			left: 0;
+		}
+	}
+}
